@@ -38,14 +38,20 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Env File Example
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-# db
+## db
 DATABASE_URL=
+
 BETTER_AUTH_SECRET=
+
 BETTER_AUTH_URL=http://localhost:3000
-# google auth
+## google auth
 GOOGLE_CLIENT_ID=
+
 GOOGLE_CLIENT_SECRET=
-# resendApiKey
+
+## resendApiKey
 RESEND_API_KEY=
+
 EMAIL_SENDER_NAME=
+
 EMAIL_SENDER_ADDRESS=
