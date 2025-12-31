@@ -1,6 +1,6 @@
 'use client';
 
-import { Product, ProductCategory } from '@prisma/client';
+
 import {
   Input,
   Button,
@@ -25,6 +25,7 @@ import { useActionState, useEffect, useState } from 'react';
 import { upsertProduct } from '../actions';
 import { toast } from 'sonner';
 import { redirect } from 'next/navigation';
+import { Product, ProductCategory } from '@/lib/generated/prisma';
 
 const ProductForm = (props: { product: Product | null }) => {
   const { product } = props;

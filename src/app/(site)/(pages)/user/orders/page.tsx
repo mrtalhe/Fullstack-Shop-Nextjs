@@ -10,10 +10,11 @@ import {
   TableRow,
 } from '@/components/ui';
 import UserNavbar from '@/components/userNavbar';
-import { Order } from '@prisma/client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import moment from 'moment'
+import { Order } from '@/lib/generated/prisma';
 const UserOrders = () => {
 
   async function fetchOrders() {

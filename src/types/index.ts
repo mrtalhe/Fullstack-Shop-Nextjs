@@ -1,4 +1,5 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from "@/lib/generated/prisma";
+
 
 export type ProductsWithImages = Prisma.ProductGetPayload<{
   include: { images: true };
@@ -8,10 +9,6 @@ export type CartWithProduct = Prisma.CartItemGetPayload<{
   include: { product: { include: { images: true } } };
 }>;
 
-
-export type MemberWithUser = Prisma.MemberGetPayload<{
-  include: { user: true };
-}>;
 export type OrderWithProducts = Prisma.OrderGetPayload<{
   include: { products: true };
 }>;

@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '@prisma/client';
+
 
 import {
   Button,
@@ -21,6 +21,7 @@ import {
   deleteUser,
   GetUsers,
 } from '../services';
+import { User } from '@/lib/generated/prisma';
 const UserTable = (props: { users: Awaited<ReturnType<typeof GetUsers>> }) => {
   const { users } = props;
   return (

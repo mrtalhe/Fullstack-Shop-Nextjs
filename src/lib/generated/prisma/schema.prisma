@@ -1,0 +1,159 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/lib/generated/prisma"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  orders        Order[]
+  role          role      @default(member)
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
+}
+
+enum ProductCategory {
+  MOBILE
+  LAPTOP
+  WATCH
+  OTHERS
+}
+
+model Product {
+  id          String          @id @default(uuid())
+  name        String
+  category    ProductCategory
+  description String?
+  price       Float?          @default(0.0)
+  quantity    Int?            @default(0)
+  images      Image[]
+  cart        CartItem[]
+  orderItems  OrderProduct[]
+  slug        String          @unique
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  image     String
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  productId String
+  quantity  Int
+  product   Product  @relation(fields: [productId], references: [id])
+  payment   Payment?
+  amount    Int      @default(0)
+}
+
+model Payment {
+  id         Int          @id @default(autoincrement())
+  orderId    String?      @unique
+  order      Order?       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  cartItemId Int?         @unique
+  cartItem   CartItem?    @relation(fields: [cartItemId], references: [id], onDelete: Cascade)
+  authority  String?
+  code       Int?
+  state      PaymentState @default(Ready)
+  date       DateTime     @default(now())
+}
+
+model Order {
+  id        String         @id @default(uuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products  OrderProduct[]
+  payment   Payment?
+  amount    Float
+  state     OrderState     @default(Pending)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @default(now()) @updatedAt
+}
+
+model OrderProduct {
+  id        Int     @id @default(autoincrement())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int     @default(1)
+  price     Float   @default(0.0)
+}
+
+enum role {
+  member
+  admin
+}
+
+enum PaymentState {
+  Ready
+  Pending
+  Paid
+  Failed
+}
+
+enum OrderState {
+  Pending
+  Sented
+}

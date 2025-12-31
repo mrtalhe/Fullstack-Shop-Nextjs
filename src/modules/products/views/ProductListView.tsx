@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ProductList from '../components/ProductList';
 import { getProducts } from '../services';
 import { ProductsWithImages } from '@/types';
 import { Pagination } from '../../../components/pagination';
-import  Loading  from '../../../app/loading';
+import Loading from '../../../app/loading';
 import { SearchBox } from '../../../components/searchBox';
 import { CategoryFilter } from '@/components/categoryFilter';
 function ProductListView() {
@@ -77,7 +77,7 @@ function ProductListView() {
 
       <h2 className='text-red-600 text-xl'>{
         paginatedProducts.length === 0 ? 'No products found' : ''
-        }</h2>
+      }</h2>
 
       <div className="justify-center flex">
         <Pagination

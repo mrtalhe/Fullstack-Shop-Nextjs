@@ -12,7 +12,8 @@ import {
   TableRow,
 } from '@/components/ui';
 import UserNavbar from '@/components/userNavbar';
-import { OrderProduct, Product } from '@prisma/client';
+import { OrderProduct, Product } from '@/lib/generated/prisma';
+
 
 async function fetchOrder(id: string) {
   const res = await fetch(`/api/orders/${id}`);

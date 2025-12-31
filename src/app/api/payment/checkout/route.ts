@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import { getCurrentUser } from '../../../../../server/users';
+import { NextResponse } from 'next/server';
 
-const prisma = new PrismaClient();
+import { getCurrentUser } from '../../../../../server/users';
+import { prisma } from '@/lib/prisma';
+
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
@@ -46,7 +46,7 @@ export async function GET(req: Request) {
           })),
         },
         payment: { connect: { id: cartItems[0].payment!.id } },
-        
+
       },
       include: {
         payment: true,

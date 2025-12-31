@@ -18,7 +18,7 @@ export default function Dashboard() {
       <div>
         <DashboardSidebar />
       </div>
-      <div className="flex-grow p-4 my-5">Hello</div>
+      <div className="flex-grow p-4 my-5">Hello Admin</div>
       <div className="my-5">
         <Button
           onClick={LogOutLogic}

@@ -1,10 +1,10 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
-import { Product, ProductCategory } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { slugify } from '@/lib/slugify';
+import { Product, ProductCategory } from '@/lib/generated/prisma';
 
 const validationUpsertProduct = (data: Record<string, any>) => {
   const formSchema = z.object({

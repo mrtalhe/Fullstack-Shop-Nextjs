@@ -1,11 +1,12 @@
-import { PrismaClient } from '@prisma/client';
-import type * as PrismaType from '@prisma/client';
+import "dotenv/config";
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient, Prisma } from "@/lib/generated/prisma";
+import type * as PrismaType from "@/lib/generated/prisma";
 
-export const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL,
-    },
-  },
-});
+const connectionString = `${process.env.DATABASE_URL}`
+
+const adapter = new PrismaPg({ connectionString })
+const prisma = new PrismaClient({ adapter })
+
+export { prisma }
 export type { PrismaType };

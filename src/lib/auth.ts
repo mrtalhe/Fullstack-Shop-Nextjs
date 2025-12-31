@@ -1,13 +1,13 @@
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+
 import { nextCookies } from 'better-auth/next-js';
 import { Resend } from 'resend';
 import ForgotPasswordEmail from '@/components/emails/reset-password';
 import VerifyEmail from '@/components/emails/verify-email';
-const resend = new Resend(process.env.RESEND_API_KEY as string);
+import { prisma } from './prisma';
 
+const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export const auth = betterAuth({
   // email verify

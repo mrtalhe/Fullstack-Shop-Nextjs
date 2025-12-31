@@ -6,9 +6,10 @@ import Image from 'next/image';
 import { Button } from '@/components/ui';
 import { CircleX } from 'lucide-react';
 import { FC, useEffect, useState } from 'react';
-import { PrismaType } from '@/lib/prisma';
+
 import { deleteImage, uploadImage, fetchImages } from '../services/image';
 import Spinner from '@/components/Spinner';
+import { PrismaType } from '@/lib/prisma';
 
 const UploadImage: FC<{ productId: string }> = ({ productId }) => {
   const [file, setFile] = useState<File | null>(null);
